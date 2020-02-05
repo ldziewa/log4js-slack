@@ -1,0 +1,37 @@
+{
+  "name": "@ldziewa/log4js-slack",
+  "version": "0.0.1",
+  "description": "Slack appender for log4js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Łukasz Dziewa",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldziewa/log4js-slack.git"
+  },
+  "keywords": [
+    "log4js",
+    "log4js-slack",
+    "slack",
+    "slack-appender",
+    "log4js-slack-apender",
+    "log4js-appender",
+    "log4js-slack-webhook",
+    "log4js-slack-webhook-appender",
+    "log4js-webhook"
+  ],
+  "license": "MIT",
+  "files": [ "dist/**/*" ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@slack/webhook": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0",
+    "ts-lint": "^4.5.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
