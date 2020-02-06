@@ -2,7 +2,7 @@ import { IncomingWebhook, IncomingWebhookDefaultArguments } from "@slack/webhook
 
 let webhook: IncomingWebhook;
 
-export interface IPluginConfig extends IncomingWebhookDefaultArguments{
+export interface IPluginConfig extends IncomingWebhookDefaultArguments {
     url: string;
     [key: string]: any;
 }
@@ -13,19 +13,15 @@ export interface ILayouts {
     layout(name: string, config: object): any;
 }
 
-function appemder(layout: any) {
+function appender(layout: any) {
     return (loggingEvent: any) => {
         webhook
             .send(layout(loggingEvent))
-            .catch(err => {
-                if (err) {
-                    console.error('log4js:slack - Error sending log to slack: ', err);
-                }
-            });
+            .catch(err => console.error('log4js:slack - Error sending log to slack: ', err));
     };
 }
 
-function configure(config: IPluginConfig, layouts: ILayouts) {
+export function configure(config: IPluginConfig, layouts: ILayouts): Function {
     let layout = layouts.basicLayout;
     if (config.layout) {
         layout = layouts.layout(config.layout.type, config.layout);
@@ -40,5 +36,5 @@ function configure(config: IPluginConfig, layouts: ILayouts) {
         link_names: config.link_names,
     });
 
-    return appemder(layout);
+    return appender(layout);
 }
