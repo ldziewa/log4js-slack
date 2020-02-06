@@ -1,25 +1,20 @@
 import { IncomingWebhook, IncomingWebhookDefaultArguments } from "@slack/webhook";
 
-let webhook = null;
+let webhook: IncomingWebhook;
 
 export interface IPluginConfig extends IncomingWebhookDefaultArguments{
     url: string;
     [key: string]: any;
 }
 
-export interface ILayout {
-    type: string,
-    [key: string]: any;
-}
-
 export interface ILayouts {
     basicLayout: string,
-    [key: string]: ILayout;
-    layout(name, config): any;
+    [key: string]: any;
+    layout(name: string, config: object): any;
 }
 
-function appemder(layout) {
-    return (loggingEvent) => {
+function appemder(layout: any) {
+    return (loggingEvent: any) => {
         webhook
             .send(layout(loggingEvent))
             .catch(err => {

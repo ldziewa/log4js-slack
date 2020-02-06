@@ -4,7 +4,6 @@
     "baseUrl": "./",
     "module": "commonjs",
     "moduleResolution": "node",
-    "noImplicitAny": true,
     "outDir": "./dist",
     "strict": true,
     "alwaysStrict": true,
