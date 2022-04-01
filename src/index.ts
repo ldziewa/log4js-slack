@@ -54,7 +54,7 @@ export function configure(config: IPluginConfig, layouts: ILayouts): Function {
         }
     }
 
-    if (config.show_webhook_errors) {
+    if (typeof config.show_webhook_errors === 'boolean') {
         showWebhookErrors = config.show_webhook_errors;
     }
 
