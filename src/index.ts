@@ -3,6 +3,7 @@ import { SeverityLevel } from "./SeverityLevel";
 
 let webhook: IncomingWebhook;
 let severityLevel: number = SeverityLevel.DEBUG;
+let showWebhookErrors: boolean = true;
 
 export interface IPluginConfig extends IncomingWebhookDefaultArguments {
     url: string;
@@ -32,7 +33,11 @@ function appender(layout: any) {
 
         webhook
             .send(layout(loggingEvent))
-            .catch(err => console.error('log4js:slack - Error sending log to slack: ', err));
+            .catch(err => {
+                if (showWebhookErrors) {
+                    console.error('log4js:slack - Error sending log to slack: ', err);
+                }
+            });
     };
 }
 
@@ -47,6 +52,10 @@ export function configure(config: IPluginConfig, layouts: ILayouts): Function {
         if (typeof severityLevel === 'undefined') {
             throw new Error('Unsupported severity level');
         }
+    }
+
+    if (config.show_webhook_errors) {
+        showWebhookErrors = config.show_webhook_errors;
     }
 
     webhook = new IncomingWebhook(config.url, {
